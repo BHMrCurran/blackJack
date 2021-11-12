@@ -1,0 +1,56 @@
+#random
+import random
+
+#Create my deck
+deck = [1,2,3,4,5,6,7,8,9,10,10,10,10] #how do I jack / queen / king?
+
+p1deck = []
+p2deck = []
+
+def playGame():
+    print("Welcome to my garage")
+    
+    firstDeal()
+    print("Player 1, you have drawn a",numberToCard(p1deck[0]),"and a", numberToCard(p1deck[1]))
+    print("Player 2, you have drawn a",numberToCard(p2deck[0]),"and a", numberToCard(p2deck[1]))
+    print("Player 1 total:",p1deck[0]+p1deck[1])
+    print("Player 2 total:",p2deck[0]+p2deck[1])
+    
+    while True:
+        stickOrTwist("Player 1",p1deck)
+        stickOrTwist("Player 2",p2deck)
+
+
+def firstDeal():
+    global p1deck
+    global p2deck
+    
+    p1deck.append(random.choice(deck))
+    p1deck.append(random.choice(deck))
+    
+    p2deck.append(random.choice(deck))
+    p2deck.append(random.choice(deck))
+    
+def numberToCard(number):
+    if number == 1:
+        return "Ace"
+    elif number == 10:
+        return "Royal"
+    else:
+        return number
+
+def stickOrTwist(playerName,playerDeck):
+    total = sum(playerDeck)
+    print(playerName,"your current total is",total)
+    print("Would you like to twist? y/n \n:")
+    choice = input()
+    if choice.lower() == "y":
+        playerDeck.append(random.choice(deck))
+        
+        if sum(playerDeck) > 21:
+            print("Your new total is", sum(playerDeck))
+            print("Bust!")
+        else:
+            print("Your new total is",sum(playerDeck))
+    else:
+        print("You have stuck on",total)
